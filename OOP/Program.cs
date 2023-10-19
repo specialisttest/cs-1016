@@ -42,8 +42,57 @@ namespace OOP
 
     internal class Program
     {
+        static void DrawScene(IEnumerable<Shape> scene)
+        {
+            /* VMT
+             * Class    Method  Address
+             * Point    Draw        XXX
+             * Circle   Draw        YYY
+             * Line     Draw        ZZZ
+             * 
+             */
+            
+            foreach (Shape s in scene)
+                s.Draw();
+        }
+        static void ScaleScene(IEnumerable<Shape> scene, double factor)
+        {
+            foreach (Shape s in scene)
+                if (s is IScaleable sc)
+                    sc.Scale(factor);
+
+                /*if (s is IScaleable)
+                {
+                    IScaleable sc = (IScaleable)sc;
+                    sc.Scale(factor);
+                }*/
+                /*IScaleable sc = s as IScaleable;
+                if (sc != null)
+                    sc.Scale(factor); */
+                //(s as IScaleable)?.Scale(factor);
+
+
+        }
+
+        static IEnumerable<string> GetNames()
+        {
+            yield return "Sergey";
+            yield return "Anna";
+            yield return "Elena";
+        }
+
+        static IEnumerable<Shape> CreateScene()
+        {
+            yield return new Circle(10, 20, 100, "green");
+            yield return new Point(10, 20, "pink");
+            yield return new Line(1, 1, 10, 10, "red");
+        }
+
         static void Main(string[] args)
         {
+            foreach(var s in GetNames())
+                Console.WriteLine(s);
+            
             // double y = log(sin(x*PI))
             double x = 1;
             double y = Log(Sin(x * PI));
@@ -59,35 +108,37 @@ namespace OOP
 
             Console.WriteLine(k3);
 
+            {
+                Person.PrintTotal();
 
-            Person.PrintTotal();
-            
-            Person p1 = new Person("Анна", 18) { EMail="anna@anna.ru" };
-            
-            //p1.Name = "Анна";
-            //p1.Age  = 18;
+                Person p1 = new Person("Анна", 18) { EMail = "anna@anna.ru" };
 
-            Person p2 = new Person("Елена", 27);
-            //p2.Name = "Елена";
-            //p2.Age = 27; 
-            
-            Person px = new Person();
+                //p1.Name = "Анна";
+                //p1.Age  = 18;
 
-            p1.Show(); // this == p1
-            p2.Show(); // this == p2
-            px.Show();
+                Person p2 = new Person("Елена", 27);
+                //p2.Name = "Елена";
+                //p2.Age = 27; 
 
-            p1 = p2 = px = null;
+                Person px = new Person();
 
-            Circle c1 = new Circle(10, 20, 100, "GREEN");  
+                p1.Show(); // this == p1
+                p2.Show(); // this == p2
+                px.Show();
+
+                p1 = p2 = px = null;
+                Person.PrintTotal();
+
+            }
+            Circle c1 = new Circle(10, 20, 100, "green");
             //c1.Radius = 10; // set
             Console.WriteLine(c1.Radius); // get
             //c1.setRadius(-10);
-            c1.Draw();
+            //c1.Draw();
 
             Shape s1 = c1;   //implicit conv
-            s1.Draw(); // Circle.Draw если virtaul Draw!!!!
-            
+                             //s1.Draw(); // Circle.Draw если virtaul Draw!!!!
+
 
             //s1 = new Shape();
 
@@ -96,20 +147,46 @@ namespace OOP
                 Circle c2 = (Circle)s1;  // explicit conv
                 c2.Draw();
             }*/
-            if (s1 is Circle c2)
+            /*if (s1 is Circle c2)
             {
                 c2.Draw();
-            }
-            
-            
+            }*/
+
+
             //Circle c2 = s1 as Circle;  //
             //c2?.Draw();
 
+            Point po1 = new Point(10, 20, "pink");
+            Line l1 = new Line(1, 1, 10, 10, "red");
 
+            //Shape[] scene = { c1, po1, l1 };
+            var scene = CreateScene();
+            DrawScene(scene);
+            //ScaleScene(scene, 2);
+            c1.Scale(2);
+            IScaleable sc = c1;
+            sc.Scale(2);
+            IScaleable3D sc3d = c1;
+            sc3d.Scale(2);
 
+            DrawScene(scene);
 
+            object o = c1;
+            o = po1;
+            o = l1;
+            o = "String";
 
-            Person.PrintTotal();
+            o = 4; // boxong
+            /*if (o is int)
+            {
+                int ki = (int)o; // unboxing
+            }*/
+
+            if (o is int ki) // unboxing
+            {
+                Console.WriteLine(ki);
+            }
+
 
             //var point = new { X = 10, Y = 20, Color = "Red" };
             

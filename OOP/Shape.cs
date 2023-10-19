@@ -6,6 +6,17 @@ using System.Threading.Tasks;
 
 namespace OOP
 {
+/* В программе создать объекты классов
+ * Point, Circle Line.
+ * Создать массив Shape[] scene и добавить
+ * в него ссылки на созданные объекты
+ * Сделать метод DrawScene, которые 
+ * перебирает этот массив и для каждого 
+ * объекта вызывает метод Draw()
+ * 
+ * 
+ */
+    
     public abstract class Shape
     {
         public const string DEFAULT_COLOR = "black";
