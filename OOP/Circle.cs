@@ -93,5 +93,26 @@ namespace OOP
         {
             
         }
+
+        public static explicit operator Point(Circle c)
+        {
+            return new Point(c.X, c.Y, c.Color);
+        }
+
+        public override bool Equals(object? obj)
+        {
+            if (obj is Circle c)
+                return this.X == c.X && this.Y == c.Y && this.Radius == c.Radius;
+            return base.Equals(obj);
+        }
+
+        public static bool operator ==(Circle c1, Circle c2)
+        { 
+            return object.Equals(c1, c2);
+        }
+        public static bool operator !=(Circle c1, Circle c2)
+        {
+            return !(c1 == c2);
+        }
     }
 }

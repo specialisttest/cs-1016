@@ -4,13 +4,18 @@ namespace Vars
 {
     enum FileMode : byte { Read = 1, Write = 100, ReadWrite = 200 }
 
-    internal class Program
+    file class Program
     {
         static int a;
 
         static bool B() {
             Console.WriteLine("B()");
             return false;
+        }
+
+        static void Print(dynamic person)
+        {
+            Console.WriteLine($"{person.Name} : {person.Age}");
         }
 
         static void Main(string[] args)
@@ -78,6 +83,34 @@ namespace Vars
                 //Console.WriteLine(sizeof(int));
                 int k = (int)fm;
                 Console.WriteLine(k);
+            }
+            {
+                dynamic d = "Sergey";
+
+                //d.printInPython();
+
+                var person = new { Name = "Sergey", Age = 46 };
+                Console.WriteLine($"{person.Name} : {person.Age}");
+                Print(person);
+            
+            }
+            {
+                Type excelAppType = Type.GetTypeFromProgID("Excel.Application");
+                dynamic excel = Activator.CreateInstance(excelAppType);
+
+                excel.Visible = true;
+                excel.Workbooks.Add();
+
+            }
+            {
+                string text = """
+                      <element attr="content">
+                        <body>
+                        </body>
+                      </element>
+              """;
+                Console.WriteLine(text);
+
             }
 
         }

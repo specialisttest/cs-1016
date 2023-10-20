@@ -6,7 +6,7 @@ namespace OOP
 {
     public partial class Person
     {
-        public string EMail;
+        public required string EMail;
 
         partial void Validate()
         {
@@ -116,11 +116,11 @@ namespace OOP
                 //p1.Name = "Анна";
                 //p1.Age  = 18;
 
-                Person p2 = new Person("Елена", 27);
+                Person p2 = new Person("Елена", 27) { EMail = "helen@elena.ru"};
                 //p2.Name = "Елена";
                 //p2.Age = 27; 
 
-                Person px = new Person();
+                Person px = new Person() { EMail = "helen@elena.ru" }; ;
 
                 p1.Show(); // this == p1
                 p2.Show(); // this == p2
@@ -196,6 +196,39 @@ namespace OOP
             Date now = new Date(2023, 2, 29);
             Console.WriteLine(now.Validate());
             now.Print();
+            {
+                Point p1 = new Point(10, 20);
+                Point p2 = new Point(30, 10);
+                Point p3 = p1 + p2;
+                //Point.Add(p1, p2);
+                //p1.Add(p2);
+                //
+
+                //Point p4 = 5 +p3;
+                p3 += 5;
+
+                p1.Draw();
+                p2.Draw();
+                p3.Draw();
+                //p4.Draw();
+
+                double d = (double)p1;
+                Circle c = new Circle(10, 20, 30);
+                Point point = (Point)c;
+
+                Point pp1 = new Point(1, 1);
+                Point pp2 = new Point(1, 1);
+                Console.WriteLine(pp1.Equals(pp2));
+                Console.WriteLine(pp1 == pp2);
+                Console.WriteLine(p1[0]);
+                Console.WriteLine(p1[1]);
+                Console.WriteLine(p1["x"]);
+                Console.WriteLine(p1["y"]);
+            }
+            {
+                Box box = new Box(10, 20);
+                Box box2 = box with { Height = 10 };
+            }
         }
     }
 }
